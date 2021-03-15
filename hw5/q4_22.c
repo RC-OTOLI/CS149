@@ -56,7 +56,7 @@ void *find_average(void *int_array) {
 	pthread_exit(0);
 }
 
-// Minumum thread routine
+// Minimum thread routine
 void *find_minimum(void *int_array) {
 	int *arr = (int *)int_array;
 	int curr_min = arr[0];
