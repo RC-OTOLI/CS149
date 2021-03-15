@@ -1,7 +1,7 @@
-nclude <pthread.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <sys/types.h>
-#incldue <sys/wait.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 int value = 0;
