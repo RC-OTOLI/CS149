@@ -24,7 +24,7 @@ int RUN_MODE = 1;	// !0 = each philosopher must eat MAX_LOOP times
 int MAX_LOOP = 10;
 
 sem_t mutex;			// protect functions
-sem_t S[NUM_PHILOSOPHERS];	// protect resources
+sem_t cond_vars[NUM_PHILOSOPHERS];	// protect resources
 
 void *philosopher (void *num) {
 	if(RUN_MODE)
@@ -55,7 +55,7 @@ void *pickup_fork(int philosopher_number) {
 	sem_post(&mutex);
 
 	// Wait until resources are free
-	sem_wait(&S[philosopher_number]);
+	sem_wait(&cond_vars[philosopher_number]);
 }
 
 void *return_fork(int philosopher_number) {
@@ -86,7 +86,7 @@ void check(int philosopher_number) {
 				philosopher_number, LEFT, philosopher_number);
 		
 		// Notify hungry philosophers
-		sem_post(&S[philosopher_number]);
+		sem_post(&cond_vars[philosopher_number]);
 	}
 }
 
@@ -102,7 +102,7 @@ int main() {
 
 	sem_init(&mutex, 0, 1);
 	for(int i = 0; i < NUM_PHILOSOPHERS; i++)
-		sem_init(&S[i], 0, 0);
+		sem_init(&cond_vars[i], 0, 0);
 
 	for(int i = 0; i < NUM_PHILOSOPHERS; i++) 
 		philosophers[i] = i;
